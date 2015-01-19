@@ -1,148 +1,129 @@
-/**********************************************
-* Ink v1.0.5 - Copyright 2013 ZURB Inc        *
-**********************************************/
+// _grid_email.scss
+// Author: ben.chao@opower.com
 
-/* Client-specific Styles and Reset */
+// Responsive Grid for Email, adapted from Ink 
 
-#outlook a {
-  padding:0;
-}
+@mixin body {
 
-body{
-  width:100% !important;
-  min-width: 100%;
-  -webkit-text-size-adjust:100%;
-  -ms-text-size-adjust:100%;
-  margin:0;
-  padding:0;
-}
-
-  /* .ExternalClass applies to Outlook.com (the artist formerly known as Hotmail)  */
-
-.ExternalClass {
-  width:100%;
-}
-
-.ExternalClass,
-.ExternalClass p,
-.ExternalClass span,
-.ExternalClass font,
-.ExternalClass td,
-.ExternalClass div {
-  line-height: 100%;
-}
-
-/* removed for opower */ 
-
-/* #backgroundTable {
-  margin:0;
-  padding:0;
-  width:100% !important;
-  line-height: 100% !important;
-}
-
-img {
-  outline:none;
-  text-decoration:none;
-  -ms-interpolation-mode: bicubic;
-  width: auto;
-  max-width: 100%;
-  float: left;
-  clear: both;
-  display: block;
-} */
-
-center {
-  width: 100%;
-  min-width: 580px;
-}
-
-/* removed for opower */ 
-
-/* a img {
-  border: none;
-}
-
-p {
-  margin: 0 0 0 10px;
-} */
-
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-td {
-
-  /* removed for opower */ 
-
-  /* word-break: break-word;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto; */ 
-
-  border-collapse: collapse !important;
-}
-
-table, tr, td {
-  padding: 0;
-
-  /* removed for opower */ 
-
-  /* vertical-align: top;
-  text-align: left; */ 
-}
-
-/* removed for opower */ 
-
-/* hr {
-  color: #d9d9d9;
-  background-color: #d9d9d9;
-  height: 1px;
-  border: none;
-} */
-
-/* Responsive Grid */
-
-table.body {
+  // table.body  
   height: 100%;
-  width: 100%;
+  width: 100%;  
 }
 
-table.container {
+
+@mixin container {
+
+  // table.container   
   width: 580px;
   margin: 0 auto;
   text-align: inherit;
+
+
+  @media #{$mobile-screen} {  
+    // media table.body .container
+    width: 90% !important;
+  }
 }
 
-table.row {
+
+@mixin outer-row {
+  // table.row 
   padding: 0px;
   width: 100%;
   position: relative;
+
+  // media table.body .row 
+  @media #{$mobile-screen} {
+    width: 100% !important;
+    display: block !important;
+  }
 }
 
-table.container table.row {
-  display: block;
+
+@mixin inner-row {
+  // table.container table.row 
+  @include outer-row();
+  display: block;  
 }
 
-td.wrapper {
+
+@mixin wrapper($last:false) {
+  // td.wrapper
   padding: 10px 20px 0px 0px;
   position: relative;
+
+  // table.row td.last,
+  // table.container td.last  
+  @if $last {
+    padding: 10px 0px 0px 0px;
+  } 
+
+  // media table.body .wrapper 
+  @media #{$mobile-screen} {
+    display: block !important;
+    padding-right: 0 !important;
+  }
 }
 
-table.columns,
-table.column {
+
+
+// @FUNCTION
+// $colNumber - Found in settings file
+// $totalColumns - Found in settings file
+$base-width: 30px; 
+$col-width: 50px;
+$max-width: 600px;
+$mobile-screen: "only screen and (max-width : 600px)";
+
+
+@function column-width($colNumber) {
+  return $base-width + ($colNumber - 1) * $col-width;
+} 
+
+@media #{$mobile-screen} {
+  // media table.body center
+  center {
+    min-width: 0 !important;
+  }
+}
+
+@mixin column($columns) {
+  // table.columns 
   margin: 0 auto;
+
+  // table.one to table.twelve
+  width: column-width($columns); 
+
+  // table.one center to table.twelve center
+  center {
+    min-width: column-width($columns);
+  }
+
+  // media table.body .columns
+  @media #{$mobile-screen} {
+    table-layout: fixed !important;
+    float: none !important;
+    width: 100% !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    display: block !important;    
+  }
 }
 
-/* added .grid for opower */ 
+@mixin column-grid {
 
-table.columns td.grid,
-table.column td.grid {
+  // table.columns td.grid 
   padding: 0px 0px 10px 0px;
+
+  // table.body table.columns td.grid,
+  @media #{$mobile-screen} {
+    width: 100% !important;
+  }
 }
 
-table.columns td.sub-columns,
+
+
+/*table.columns td.sub-columns,
 table.column td.sub-columns,
 table.columns td.sub-column,
 table.column td.sub-column {
@@ -151,53 +132,10 @@ table.column td.sub-column {
 
 td.sub-column, td.sub-columns {
   min-width: 0px;
-}
+}*/
 
-table.row td.last,
-table.container td.last {
-  padding-right: 0px;
-}
 
-table.one { width: 30px; }
-table.two { width: 80px; }
-table.three { width: 130px; }
-table.four { width: 180px; }
-table.five { width: 230px; }
-table.six { width: 280px; }
-table.seven { width: 330px; }
-table.eight { width: 380px; }
-table.nine { width: 430px; }
-table.ten { width: 480px; }
-table.eleven { width: 530px; }
-table.twelve { width: 580px; }
-
-table.one center { min-width: 30px; }
-table.two center { min-width: 80px; }
-table.three center { min-width: 130px; }
-table.four center { min-width: 180px; }
-table.five center { min-width: 230px; }
-table.six center { min-width: 280px; }
-table.seven center { min-width: 330px; }
-table.eight center { min-width: 380px; }
-table.nine center { min-width: 430px; }
-table.ten center { min-width: 480px; }
-table.eleven center { min-width: 530px; }
-table.twelve center { min-width: 580px; }
-
-table.one .panel center { min-width: 10px; }
-table.two .panel center { min-width: 60px; }
-table.three .panel center { min-width: 110px; }
-table.four .panel center { min-width: 160px; }
-table.five .panel center { min-width: 210px; }
-table.six .panel center { min-width: 260px; }
-table.seven .panel center { min-width: 310px; }
-table.eight .panel center { min-width: 360px; }
-table.nine .panel center { min-width: 410px; }
-table.ten .panel center { min-width: 460px; }
-table.eleven .panel center { min-width: 510px; }
-table.twelve .panel center { min-width: 560px; }
-
-.body .columns td.one,
+/*.body .columns td.one,
 .body .column td.one { width: 8.333333%; }
 .body .columns td.two,
 .body .column td.two { width: 16.666666%; }
@@ -220,48 +158,67 @@ table.twelve .panel center { min-width: 560px; }
 .body .columns td.eleven,
 .body .column td.eleven { width: 91.666666%; }
 .body .columns td.twelve,
-.body .column td.twelve { width: 100%; }
+.body .column td.twelve { width: 100%; }*/
 
-td.offset-by-one { padding-left: 50px; }
-td.offset-by-two { padding-left: 100px; }
-td.offset-by-three { padding-left: 150px; }
-td.offset-by-four { padding-left: 200px; }
-td.offset-by-five { padding-left: 250px; }
-td.offset-by-six { padding-left: 300px; }
-td.offset-by-seven { padding-left: 350px; }
-td.offset-by-eight { padding-left: 400px; }
-td.offset-by-nine { padding-left: 450px; }
-td.offset-by-ten { padding-left: 500px; }
-td.offset-by-eleven { padding-left: 550px; }
+@mixin offset-by($column) {
 
-td.expander {
+  // td.offset-by-one to td.offset-by-eleven
+  padding-left: $column * 50px;
+
+  // media table.body td.offset-by-one, 
+  // media table.body td.offset-by-eleven
+  @media #{$mobile-screen} {
+    padding-left: 0 !important;
+  }
+
+}
+
+@mixin expander {
+  // td.expander 
   visibility: hidden;
   width: 0px;
-  padding: 0 !important;
+  padding: 0 !important;  
+
+  // media table.body table.columns td.expander
+  @media #{$mobile-screen} {
+    width: 1px !important; 
+  }
 }
 
-table.columns .text-pad,
-table.column .text-pad {
-  padding-left: 10px;
-  padding-right: 10px;
-}
+@mixing text-pad($side:'both') {
 
-table.columns .left-text-pad,
-table.columns .text-pad-left,
-table.column .left-text-pad,
-table.column .text-pad-left {
-  padding-left: 10px;
-}
 
-table.columns .right-text-pad,
-table.columns .text-pad-right,
-table.column .right-text-pad,
-table.column .text-pad-right {
-  padding-right: 10px;
+  // table.columns .text-pad 
+  // table.columns .text-pad-left
+  // table.columns .text-pad-right
+
+  @if $side == left {
+    padding-left: 10px;
+
+    // media table.body .left-text-pad,
+    @media #{$mobile-screen} {
+      padding-left: 10px !important;
+    }
+  }
+
+  @else if $side == right {
+    padding-right: 10px;
+
+    // media table.body .right-text-pad,
+    @media #{$mobile-screen} {
+      padding-right: 10px !important;
+    }
+  }
+
+  @else {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
 }
 
 /* Block Grid */
-
+/*
 .block-grid {
   width: 100%;
   max-width: 580px;
@@ -299,10 +256,10 @@ table.column .text-pad-right {
 .eight-up td {
   width:52px;
 }
-
+*/
 /* Alignment and Visibility Classes */
 
-table.center, td.center {
+/*table.center, td.center {
   text-align: center;
 }
 
@@ -330,7 +287,7 @@ img.center {
 .show-for-small,
 .hide-for-desktop {
   display: none;
-}
+}*/
 
 /* Typography */
 
@@ -597,59 +554,24 @@ table.round td {
 
 /* Outlook First */
 
-body.outlook p {
+/*body.outlook p {
   display: inline !important;
-}
+}*/
 
 /*  Media Queries */
 
-@media only screen and (max-width: 600px) {
-
+/*@media only screen and (max-width: 600px) {
+*/
   /* removed for opower */ 
 
   /* table.body img {
     width: auto !important;
     height: auto !important;
   } */ 
-
-  table.body center {
-    min-width: 0 !important;
-  }
-
-  table.body .container {
-    width: 90% !important;
-  }
-
-  table.body .row {
-    width: 100% !important;
-    display: block !important;
-  }
-
-  table.body .wrapper {
-    display: block !important;
-    padding-right: 0 !important;
-  }
-
-  table.body .columns,
-  table.body .column {
-    table-layout: fixed !important;
-    float: none !important;
-    width: 100% !important;
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-    display: block !important;
-  }
-
+/*
   table.body .wrapper.first .columns,
   table.body .wrapper.first .column {
     display: table !important;
-  }
-
-  /* added .grid for opower */   
-
-  table.body table.columns td.grid,
-  table.body table.column td.grid {
-    width: 100% !important;
   }
 
   table.body .columns td.one,
@@ -677,34 +599,6 @@ body.outlook p {
   table.body .columns td.twelve,
   table.body .column td.twelve { width: 100% !important; }
 
-  table.body td.offset-by-one,
-  table.body td.offset-by-two,
-  table.body td.offset-by-three,
-  table.body td.offset-by-four,
-  table.body td.offset-by-five,
-  table.body td.offset-by-six,
-  table.body td.offset-by-seven,
-  table.body td.offset-by-eight,
-  table.body td.offset-by-nine,
-  table.body td.offset-by-ten,
-  table.body td.offset-by-eleven {
-    padding-left: 0 !important;
-  }
-
-  table.body table.columns td.expander {
-    width: 1px !important;
-  }
-
-  table.body .right-text-pad,
-  table.body .text-pad-right {
-    padding-left: 10px !important;
-  }
-
-  table.body .left-text-pad,
-  table.body .text-pad-left {
-    padding-right: 10px !important;
-  }
-
   table.body .hide-for-small,
   table.body .show-for-desktop {
     display: none !important;
@@ -714,4 +608,4 @@ body.outlook p {
   table.body .hide-for-desktop {
     display: inherit !important;
   }
-}
+}*/
