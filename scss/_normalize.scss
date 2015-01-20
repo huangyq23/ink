@@ -1,6 +1,8 @@
-/* Client-specific Styles & Reset */
+// _normalize.scss
+// Author: ben.chao@opower.com
 
-// normalize table
+// Normalize Email HTML, adapted from Ink 
+
 @mixin normalize {
 
   #outlook a { 
