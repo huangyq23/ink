@@ -95,16 +95,15 @@ module.exports = function(grunt) {
           livereload: true,
         },
       },
-    }
+    },
   });
 
   grunt.loadNpmTasks('assemble');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-sass');
 
   grunt.registerTask('make:templates', ['assemble:templates', 'shell:zipTemplates']);
-  grunt.registerTask('deploy:downloads', ['shell:makeStage','assemble:templates', 'shell:zipTemplates', 'shell:zipFramework', 'shell:linkFramework', 'shell:deployDownloads', 'shell:cleanUp']);
+  grunt.registerTask('deploy:downloads', ['shell:makeStage', 'assemble:templates', 'shell:zipTemplates', 'shell:zipFramework', 'shell:linkFramework', 'shell:deployDownloads', 'shell:cleanUp']);
   grunt.registerTask('make:docs', ['shell:makeStage', 'assemble:docsDev', 'shell:testDocs']);
   grunt.registerTask('deploy:docs', ['shell:makeStage', 'assemble:docsDeploy', 'shell:deployDocs', 'shell:cleanUp']);
   grunt.registerTask('default', ['make:docs', 'watch']);
