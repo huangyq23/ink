@@ -3,6 +3,19 @@
 
 // Responsive Grid for Email, adapted from Ink 
 
+// @FUNCTION
+// $colNumber - Found in settings file
+// $totalColumns - Found in settings file
+$base-width: 30px; 
+$col-width: 50px;
+$mobile-screen: "only screen and (max-width : 600px)";
+
+@function column-width($colNumber) {
+  @return $base-width + ($colNumber - 1) * $col-width;
+} 
+
+// mixins 
+
 @mixin body {
   // table.body  
   height: 100%;
@@ -64,20 +77,6 @@
   }
 }
 
-
-
-// @FUNCTION
-// $colNumber - Found in settings file
-// $totalColumns - Found in settings file
-$base-width: 30px; 
-$col-width: 50px;
-$max-width: 600px;
-$mobile-screen: "only screen and (max-width : 600px)";
-
-@function column-width($colNumber) {
-  @return $base-width + ($colNumber - 1) * $col-width;
-} 
-
 @media #{$mobile-screen} {
   // media table.body center
   center {
@@ -128,6 +127,14 @@ $mobile-screen: "only screen and (max-width : 600px)";
   // media table.body td.offset-by-eleven
   @media #{$mobile-screen} {
     padding-left: 0 !important;
+  }
+
+}
+
+@mixin pull-by($column) {
+  padding-right: $column * 50px;
+  @media #{$mobile-screen} {
+    padding-right: 0 !important;
   }
 
 }
