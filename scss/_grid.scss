@@ -1,0 +1,178 @@
+// _grid_email.scss
+// Author: ben.chao@opower.com
+
+// Responsive Grid for Email, adapted from Ink 
+
+@mixin body {
+  // table.body  
+  height: 100%;
+  width: 100%;  
+}
+
+@mixin container {
+  // table.container   
+  width: 580px;
+  margin: 0 auto;
+  text-align: inherit;
+
+
+  @media #{$mobile-screen} {  
+    // media table.body .container
+    width: 90% !important;
+  }
+}
+
+
+@mixin outer-row {
+  // table.row 
+  padding: 0px;
+  width: 100%;
+  position: relative;
+
+  // media table.body .row 
+  @media #{$mobile-screen} {
+    width: 100% !important;
+    display: block !important;
+  }
+}
+
+
+@mixin inner-row {
+  // table.container table.row 
+  @include outer-row();
+  display: block;  
+}
+
+
+@mixin wrapper($last:'') {
+  position: relative;
+
+  // table.row td.last,
+  // table.container td.last  
+  @if $last == last {
+    padding: 10px 0px 0px 0px;
+  } 
+  // td.wrapper  
+  @else {
+    padding: 10px 20px 0px 0px;
+  }
+
+  // media table.body .wrapper 
+  @media #{$mobile-screen} {
+    display: block !important;
+    padding-right: 0 !important;
+  }
+}
+
+
+
+// @FUNCTION
+// $colNumber - Found in settings file
+// $totalColumns - Found in settings file
+$base-width: 30px; 
+$col-width: 50px;
+$max-width: 600px;
+$mobile-screen: "only screen and (max-width : 600px)";
+
+@function column-width($colNumber) {
+  @return $base-width + ($colNumber - 1) * $col-width;
+} 
+
+@media #{$mobile-screen} {
+  // media table.body center
+  center {
+    min-width: 0 !important;
+  }
+}
+
+@mixin column($columns) {
+  // table.columns 
+  margin: 0 auto;
+
+  // table.one to table.twelve
+  width: column-width($columns); 
+
+  // table.one center to table.twelve center
+  center {
+    min-width: column-width($columns);
+  }
+
+  // media table.body .columns
+  @media #{$mobile-screen} {
+    table-layout: fixed !important;
+    float: none !important;
+    width: 100% !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    display: block !important;    
+  }
+}
+
+@mixin column-grid {
+
+  // table.columns td.grid 
+  padding: 0px 0px 10px 0px;
+
+  // table.body table.columns td.grid,
+  @media #{$mobile-screen} {
+    width: 100% !important;
+  }
+}
+
+@mixin offset-by($column) {
+
+  // td.offset-by-one to td.offset-by-eleven
+  padding-left: $column * 50px;
+
+  // media table.body td.offset-by-one, 
+  // media table.body td.offset-by-eleven
+  @media #{$mobile-screen} {
+    padding-left: 0 !important;
+  }
+
+}
+
+@mixin expander {
+  // td.expander 
+  visibility: hidden;
+  width: 0px;
+  padding: 0 !important;  
+
+  // media table.body table.columns td.expander
+  @media #{$mobile-screen} {
+    width: 1px !important; 
+  }
+}
+
+@mixin text-pad($side:'both') {
+
+  // table.columns .text-pad 
+  // table.columns .text-pad-left
+  // table.columns .text-pad-right
+
+  @if $side == left {
+    padding-left: 10px;
+
+    // media table.body .left-text-pad,
+    @media #{$mobile-screen} {
+      padding-left: 10px !important;
+    }
+  }
+
+  @else if $side == right {
+    padding-right: 10px;
+
+    // media table.body .right-text-pad,
+    @media #{$mobile-screen} {
+      padding-right: 10px !important;
+    }
+  }
+
+  @else {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+}
+
+

@@ -1,0 +1,43 @@
+/* Client-specific Styles & Reset */
+
+// normalize table
+@mixin normalize {
+
+  #outlook a { 
+    padding:0; 
+  } 
+
+  body{ 
+    width:100% !important; 
+    min-width: 100%;
+    margin:0; 
+    padding:0;
+  }
+
+  .ExternalClass { 
+    width:100%;
+  } 
+
+  .ExternalClass, 
+  .ExternalClass p, 
+  .ExternalClass span, 
+  .ExternalClass font, 
+  .ExternalClass td, 
+  .ExternalClass div { 
+    line-height: 100%; 
+  } 
+
+  table {
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  td { 
+    border-collapse: collapse !important;
+    border-spacing: 0;
+  }
+
+  table, tr, td {
+    padding: 0;
+  }
+}
