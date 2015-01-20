@@ -9,3 +9,6 @@ Changes
 * Updates normalizing CSS for `table`, `tr`, and `td`
 * Adds `.grid` to `td`s used for responsive layout so we can target which tables elements get the responsive treatment. Necessary since we won't be updating all modules to be Ink-compliant. 
 
+Sass
+====
+Two sass files are added, `_grid.scss` and `_normalize.scss`.  These files contain mixins which allow us to apply Ink's responsive grid more judiciously. 
