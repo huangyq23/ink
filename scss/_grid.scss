@@ -19,7 +19,14 @@ $mobile-screen: "only screen and (max-width : 600px)";
 @mixin body {
   // table.body  
   height: 100%;
-  width: 100%;  
+  width: 100%; 
+
+  @media #{$mobile-screen} {
+    // media table.body center
+    center {
+      min-width: 0 !important;
+    }
+  }
 }
 
 @mixin container {
@@ -35,7 +42,6 @@ $mobile-screen: "only screen and (max-width : 600px)";
   }
 }
 
-
 @mixin outer-row {
   // table.row 
   padding: 0px;
@@ -49,13 +55,11 @@ $mobile-screen: "only screen and (max-width : 600px)";
   }
 }
 
-
 @mixin inner-row {
   // table.container table.row 
   @include outer-row();
   display: block;  
 }
-
 
 @mixin wrapper($last:'') {
   position: relative;
@@ -74,13 +78,6 @@ $mobile-screen: "only screen and (max-width : 600px)";
   @media #{$mobile-screen} {
     display: block !important;
     padding-right: 0 !important;
-  }
-}
-
-@media #{$mobile-screen} {
-  // media table.body center
-  center {
-    min-width: 0 !important;
   }
 }
 
@@ -107,7 +104,7 @@ $mobile-screen: "only screen and (max-width : 600px)";
   }
 }
 
-@mixin column-grid {
+@mixin column-content {
 
   // table.columns td.grid 
   padding: 0px 0px 10px 0px;
