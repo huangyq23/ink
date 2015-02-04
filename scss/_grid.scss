@@ -6,24 +6,24 @@
 // @FUNCTION
 // $colNumber - Found in settings file
 // $totalColumns - Found in settings file
-$base-width: 30px; 
+$base-width: 30px;
 $col-width: 50px;
 $mobile-screen: "only screen and (max-width : 600px)";
 
 @function column-width($colNumber) {
   @return $base-width + ($colNumber - 1) * $col-width;
-} 
+}
 
 // mixins 
 
 @mixin body {
   // table.body  
   height: 100%;
-  width: 100%; 
+  width: 100%;
 
   @media #{$mobile-screen} {
     // media table.body center
-    center {
+    body[yahoofix] & center {
       min-width: 0 !important;
     }
   }
@@ -35,10 +35,11 @@ $mobile-screen: "only screen and (max-width : 600px)";
   margin: 0 auto;
   text-align: inherit;
 
-
-  @media #{$mobile-screen} {  
+  @media #{$mobile-screen} {
     // media table.body .container
-    width: 90% !important;
+    body[yahoofix] & {
+      width: 90% !important;
+    }
   }
 }
 
@@ -50,34 +51,38 @@ $mobile-screen: "only screen and (max-width : 600px)";
 
   // media table.body .row 
   @media #{$mobile-screen} {
-    width: 100% !important;
-    display: block !important;
+    body[yahoofix] & {
+      width: 100% !important;
+      display: block !important;
+    }
   }
 }
 
 @mixin inner-row {
   // table.container table.row 
   @include outer-row();
-  display: block;  
+  display: block;
 }
 
-@mixin wrapper($last:'') {
+@mixin wrapper($last: '') {
   position: relative;
 
   // table.row td.last,
   // table.container td.last  
   @if $last == last {
     padding: 10px 0px 0px 0px;
-  } 
-  // td.wrapper  
+  }
+    // td.wrapper
   @else {
     padding: 10px 20px 0px 0px;
   }
 
   // media table.body .wrapper 
   @media #{$mobile-screen} {
-    display: block !important;
-    padding-right: 0 !important;
+    body[yahoofix] & {
+      display: block !important;
+      padding-right: 0 !important;
+    }
   }
 }
 
@@ -86,7 +91,7 @@ $mobile-screen: "only screen and (max-width : 600px)";
   margin: 0 auto;
 
   // table.one to table.twelve
-  width: column-width($columns); 
+  width: column-width($columns);
 
   // table.one center to table.twelve center
   center {
@@ -95,12 +100,14 @@ $mobile-screen: "only screen and (max-width : 600px)";
 
   // media table.body .columns
   @media #{$mobile-screen} {
-    table-layout: fixed !important;
-    float: none !important;
-    width: 100% !important;
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-    display: block !important;    
+    body[yahoofix] & {
+      table-layout: fixed !important;
+      float: none !important;
+      width: 100% !important;
+      padding-right: 0px !important;
+      padding-left: 0px !important;
+      display: block !important;
+    }
   }
 }
 
@@ -111,7 +118,9 @@ $mobile-screen: "only screen and (max-width : 600px)";
 
   // table.body table.columns td.grid,
   @media #{$mobile-screen} {
-    width: 100% !important;
+    body[yahoofix] & {
+      width: 100% !important;
+    }
   }
 }
 
@@ -123,7 +132,9 @@ $mobile-screen: "only screen and (max-width : 600px)";
   // media table.body td.offset-by-one, 
   // media table.body td.offset-by-eleven
   @media #{$mobile-screen} {
-    padding-left: 0 !important;
+    body[yahoofix] & {
+      padding-left: 0 !important;
+    }
   }
 
 }
@@ -131,7 +142,9 @@ $mobile-screen: "only screen and (max-width : 600px)";
 @mixin pull-by($column) {
   padding-right: $column * 50px;
   @media #{$mobile-screen} {
-    padding-right: 0 !important;
+    body[yahoofix] & {
+      padding-right: 0 !important;
+    }
   }
 
 }
@@ -140,15 +153,17 @@ $mobile-screen: "only screen and (max-width : 600px)";
   // td.expander 
   visibility: hidden;
   width: 0px;
-  padding: 0 !important;  
+  padding: 0 !important;
 
   // media table.body table.columns td.expander
   @media #{$mobile-screen} {
-    width: 1px !important; 
+    body[yahoofix] & {
+      width: 1px !important;
+    }
   }
 }
 
-@mixin text-pad($side:'both') {
+@mixin text-pad($side: 'both') {
 
   // table.columns .text-pad 
   // table.columns .text-pad-left
@@ -159,20 +174,20 @@ $mobile-screen: "only screen and (max-width : 600px)";
 
     // media table.body .left-text-pad,
     @media #{$mobile-screen} {
-      padding-left: 10px !important;
+      body[yahoofix] & {
+        padding-left: 10px !important;
+      }
     }
-  }
-
-  @else if $side == right {
+  } @else if $side == right {
     padding-right: 10px;
 
     // media table.body .right-text-pad,
     @media #{$mobile-screen} {
-      padding-right: 10px !important;
+      body[yahoofix] & {
+        padding-right: 10px !important;
+      }
     }
-  }
-
-  @else {
+  } @else {
     padding-left: 10px;
     padding-right: 10px;
   }

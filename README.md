@@ -4,7 +4,8 @@ Ink is a responsive email framework, used to make HTML emails look great on any 
 
 This is a modified version of [Zurb Ink](https://github.com/zurb/ink), which Opower uses as a responsive framework for emails.
 
-Changes 
+Changes
+* Added media query fix for [Yahoo Mail](http://www.copernica.com/en/blog/prevent-yahoo-mail-from-rendering-your-media-queries)
 * Removes Typography, Panel, and Button CSS
 * Updates normalizing CSS for `table`, `tr`, and `td`
 * Adds `.grid` to `td`s used for responsive layout so we can target which tables elements get the responsive treatment. Necessary since we won't be updating all modules to be Ink-compliant. 
